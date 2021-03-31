@@ -1,4 +1,4 @@
-# tcc_app
+# TRCAPP (Treinamento Rítmico Corporal Aplicativo)
 
 A new version of our TCC.
 
