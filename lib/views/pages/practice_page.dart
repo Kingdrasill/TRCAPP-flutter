@@ -157,7 +157,7 @@ class _PracticePageState extends State<PracticePage> {
   }
 
   _animateToIndex(index) {
-    _scrollController.animateTo(_imageHeight * 2 * index,
+    _scrollController.animateTo((_imageHeight-40) * 4 * index,
         duration: Duration(milliseconds: 400), curve: Curves.fastOutSlowIn);
   }
 
