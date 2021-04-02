@@ -9,6 +9,7 @@ import 'package:tcc_app/data/models/table_model.dart';
 import 'package:tcc_app/views/components/celula_tabela/index.dart';
 import 'package:tcc_app/views/components/dialog_box/index.dart';
 
+// ignore: must_be_immutable
 class CreatePartituraPage extends StatefulWidget {
   PartituraModel dadosIniciais;
 
@@ -19,7 +20,6 @@ class CreatePartituraPage extends StatefulWidget {
 }
 
 class _CreatePartituraPageState extends State<CreatePartituraPage> {
-
   final _scrollController = ScrollController();
 
   List<TableModel> _partitura = [];
@@ -42,45 +42,145 @@ class _CreatePartituraPageState extends State<CreatePartituraPage> {
     iniciarDados();
   }
 
-  void iniciarDados(){
-    if(widget.dadosIniciais == null) return;
+  void iniciarDados() {
+    if (widget.dadosIniciais == null) return;
     setState(() {
       this.nome = widget.dadosIniciais.name;
       this.size = widget.dadosIniciais.size;
 
-      for(int i=0; i<size; i++){
-        _partitura.add(TableModel(row1:row,row2:row,row3:row,row4:row));
+      for (int i = 0; i < size; i++) {
+        _partitura.add(TableModel(row1: row, row2: row, row3: row, row4: row));
       }
 
-      for(int i=0; i<_partitura.length; i++){
+      for (int i = 0; i < _partitura.length; i++) {
         celulas.add({
           'row1': [
-            new CelulaTabela(valor: _partitura[i].row1[0], imagem: "assets/images/pee.png", width: _imageWidth, height: _imageHeight,),
-            new CelulaTabela(valor: _partitura[i].row1[1], imagem: "assets/images/maoe.png", width: _imageWidth, height: _imageHeight,),
-            new CelulaTabela(valor: _partitura[i].row1[2], imagem: "assets/images/palma.png", width: _imageWidth, height: _imageHeight,),
-            new CelulaTabela(valor: _partitura[i].row1[3], imagem: "assets/images/maod.png", width: _imageWidth, height: _imageHeight,),
-            new CelulaTabela(valor: _partitura[i].row1[4], imagem: "assets/images/ped.png", width: _imageWidth, height: _imageHeight,)
+            new CelulaTabela(
+              valor: _partitura[i].row1[0],
+              imagem: "assets/images/pee.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            ),
+            new CelulaTabela(
+              valor: _partitura[i].row1[1],
+              imagem: "assets/images/maoe.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            ),
+            new CelulaTabela(
+              valor: _partitura[i].row1[2],
+              imagem: "assets/images/palma.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            ),
+            new CelulaTabela(
+              valor: _partitura[i].row1[3],
+              imagem: "assets/images/maod.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            ),
+            new CelulaTabela(
+              valor: _partitura[i].row1[4],
+              imagem: "assets/images/ped.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            )
           ],
           'row2': [
-            new CelulaTabela(valor: _partitura[i].row2[0], imagem: "assets/images/pee.png", width: _imageWidth, height: _imageHeight,),
-            new CelulaTabela(valor: _partitura[i].row2[1], imagem: "assets/images/maoe.png", width: _imageWidth, height: _imageHeight,),
-            new CelulaTabela(valor: _partitura[i].row2[2], imagem: "assets/images/palma.png", width: _imageWidth, height: _imageHeight,),
-            new CelulaTabela(valor: _partitura[i].row2[3], imagem: "assets/images/maod.png", width: _imageWidth, height: _imageHeight,),
-            new CelulaTabela(valor: _partitura[i].row2[4], imagem: "assets/images/ped.png", width: _imageWidth, height: _imageHeight,)
+            new CelulaTabela(
+              valor: _partitura[i].row2[0],
+              imagem: "assets/images/pee.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            ),
+            new CelulaTabela(
+              valor: _partitura[i].row2[1],
+              imagem: "assets/images/maoe.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            ),
+            new CelulaTabela(
+              valor: _partitura[i].row2[2],
+              imagem: "assets/images/palma.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            ),
+            new CelulaTabela(
+              valor: _partitura[i].row2[3],
+              imagem: "assets/images/maod.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            ),
+            new CelulaTabela(
+              valor: _partitura[i].row2[4],
+              imagem: "assets/images/ped.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            )
           ],
           'row3': [
-            new CelulaTabela(valor: _partitura[i].row3[0], imagem: "assets/images/pee.png", width: _imageWidth, height: _imageHeight,),
-            new CelulaTabela(valor: _partitura[i].row3[1], imagem: "assets/images/maoe.png", width: _imageWidth, height: _imageHeight,),
-            new CelulaTabela(valor: _partitura[i].row3[2], imagem: "assets/images/palma.png", width: _imageWidth, height: _imageHeight,),
-            new CelulaTabela(valor: _partitura[i].row3[3], imagem: "assets/images/maod.png", width: _imageWidth, height: _imageHeight,),
-            new CelulaTabela(valor: _partitura[i].row3[4], imagem: "assets/images/ped.png", width: _imageWidth, height: _imageHeight,)
+            new CelulaTabela(
+              valor: _partitura[i].row3[0],
+              imagem: "assets/images/pee.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            ),
+            new CelulaTabela(
+              valor: _partitura[i].row3[1],
+              imagem: "assets/images/maoe.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            ),
+            new CelulaTabela(
+              valor: _partitura[i].row3[2],
+              imagem: "assets/images/palma.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            ),
+            new CelulaTabela(
+              valor: _partitura[i].row3[3],
+              imagem: "assets/images/maod.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            ),
+            new CelulaTabela(
+              valor: _partitura[i].row3[4],
+              imagem: "assets/images/ped.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            )
           ],
           'row4': [
-            new CelulaTabela(valor: _partitura[i].row4[0], imagem: "assets/images/pee.png", width: _imageWidth, height: _imageHeight,),
-            new CelulaTabela(valor: _partitura[i].row4[1], imagem: "assets/images/maoe.png", width: _imageWidth, height: _imageHeight,),
-            new CelulaTabela(valor: _partitura[i].row4[2], imagem: "assets/images/palma.png", width: _imageWidth, height: _imageHeight,),
-            new CelulaTabela(valor: _partitura[i].row4[3], imagem: "assets/images/maod.png", width: _imageWidth, height: _imageHeight,),
-            new CelulaTabela(valor: _partitura[i].row4[4], imagem: "assets/images/ped.png", width: _imageWidth, height: _imageHeight,)
+            new CelulaTabela(
+              valor: _partitura[i].row4[0],
+              imagem: "assets/images/pee.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            ),
+            new CelulaTabela(
+              valor: _partitura[i].row4[1],
+              imagem: "assets/images/maoe.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            ),
+            new CelulaTabela(
+              valor: _partitura[i].row4[2],
+              imagem: "assets/images/palma.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            ),
+            new CelulaTabela(
+              valor: _partitura[i].row4[3],
+              imagem: "assets/images/maod.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            ),
+            new CelulaTabela(
+              valor: _partitura[i].row4[4],
+              imagem: "assets/images/ped.png",
+              width: _imageWidth,
+              height: _imageHeight,
+            )
           ],
         });
       }
@@ -94,14 +194,17 @@ class _CreatePartituraPageState extends State<CreatePartituraPage> {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text(this.nome, style: TextStyle(fontSize: 22),),
+            title: Text(
+              this.nome,
+              style: TextStyle(fontSize: 22),
+            ),
             elevation: 2,
-            backgroundColor: Color.fromARGB(255, 243,243,243),
+            backgroundColor: Color.fromARGB(255, 243, 243, 243),
             actions: [
               InkWell(
                 onTap: () {
                   bool response = _checkPartitura();
-                  if(response){
+                  if (response) {
                     var lista = _preencherPartitura();
                     _salvarPartitura(lista);
                   }
@@ -110,19 +213,21 @@ class _CreatePartituraPageState extends State<CreatePartituraPage> {
                   padding: const EdgeInsets.all(10.0),
                   child: Row(
                     children: [
-                      Icon(Icons.save,),
-                      Text("Salvar", style: TextStyle(color: Colors.black, fontSize: 16),)
+                      Icon(
+                        Icons.save,
+                      ),
+                      Text(
+                        "Salvar",
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                      )
                     ],
                   ),
                 ),
               )
             ],
           ),
-          backgroundColor: Color.fromARGB(255, 243,243,243),
-          body: Align(
-              alignment: Alignment.topCenter,
-              child: _buildPartitura()
-          ),
+          backgroundColor: Color.fromARGB(255, 243, 243, 243),
+          body: Align(alignment: Alignment.topCenter, child: _buildPartitura()),
         );
       },
     );
@@ -140,8 +245,7 @@ class _CreatePartituraPageState extends State<CreatePartituraPage> {
           itemBuilder: (_, index) {
             return _buildTable(index);
           },
-        )
-    );
+        ));
   }
 
   Padding _buildTable(int index) {
@@ -149,53 +253,37 @@ class _CreatePartituraPageState extends State<CreatePartituraPage> {
       padding: const EdgeInsets.all(10.0),
       child: Table(
           border: TableBorder.all(
-              color: Colors.black,
-              style: BorderStyle.solid,
-              width: 2
-          ),
+              color: Colors.black, style: BorderStyle.solid, width: 2),
           children: [
-            TableRow(
-              decoration: BoxDecoration(color: Colors.white),
-              children: [
-                celulas[index]['row1'][0],
-                celulas[index]['row1'][1],
-                celulas[index]['row1'][2],
-                celulas[index]['row1'][3],
-                celulas[index]['row1'][4],
-              ]
-            ),
-            TableRow(
-              decoration: BoxDecoration(color: Colors.white),
-              children: [
-                celulas[index]['row2'][0],
-                celulas[index]['row2'][1],
-                celulas[index]['row2'][2],
-                celulas[index]['row2'][3],
-                celulas[index]['row2'][4],
-              ]
-            ),
-            TableRow(
-              decoration: BoxDecoration(color: Colors.white),
-              children: [
-                celulas[index]['row3'][0],
-                celulas[index]['row3'][1],
-                celulas[index]['row3'][2],
-                celulas[index]['row3'][3],
-                celulas[index]['row3'][4],
-              ]
-            ),
-            TableRow(
-              decoration: BoxDecoration(color: Colors.white),
-              children: [
-                celulas[index]['row4'][0],
-                celulas[index]['row4'][1],
-                celulas[index]['row4'][2],
-                celulas[index]['row4'][3],
-                celulas[index]['row4'][4],
-              ]
-            ),
-          ]
-      ),
+            TableRow(decoration: BoxDecoration(color: Colors.white), children: [
+              celulas[index]['row1'][0],
+              celulas[index]['row1'][1],
+              celulas[index]['row1'][2],
+              celulas[index]['row1'][3],
+              celulas[index]['row1'][4],
+            ]),
+            TableRow(decoration: BoxDecoration(color: Colors.white), children: [
+              celulas[index]['row2'][0],
+              celulas[index]['row2'][1],
+              celulas[index]['row2'][2],
+              celulas[index]['row2'][3],
+              celulas[index]['row2'][4],
+            ]),
+            TableRow(decoration: BoxDecoration(color: Colors.white), children: [
+              celulas[index]['row3'][0],
+              celulas[index]['row3'][1],
+              celulas[index]['row3'][2],
+              celulas[index]['row3'][3],
+              celulas[index]['row3'][4],
+            ]),
+            TableRow(decoration: BoxDecoration(color: Colors.white), children: [
+              celulas[index]['row4'][0],
+              celulas[index]['row4'][1],
+              celulas[index]['row4'][2],
+              celulas[index]['row4'][3],
+              celulas[index]['row4'][4],
+            ]),
+          ]),
     );
   }
 
@@ -207,7 +295,7 @@ class _CreatePartituraPageState extends State<CreatePartituraPage> {
   void _salvarPartitura(List<TableModel> lista) async {
     final dao = Provider.of<PartituraDao>(context);
     List<dynamic> partituraJson = [];
-    for(int i=0; i<lista.length; i++) {
+    for (int i = 0; i < lista.length; i++) {
       print(lista[i]);
       partituraJson.add({
         "tabela": {
@@ -220,10 +308,9 @@ class _CreatePartituraPageState extends State<CreatePartituraPage> {
     }
     print(partituraJson);
     final partituraTable = PartiturasCompanion(
-      name: Value(nome),
-      size: Value(size),
-      partitura: Value(jsonEncode(partituraJson))
-    );
+        name: Value(nome),
+        size: Value(size),
+        partitura: Value(jsonEncode(partituraJson)));
     await dao.insertPartitura(partituraTable);
     Navigator.pop(context);
   }
@@ -231,66 +318,73 @@ class _CreatePartituraPageState extends State<CreatePartituraPage> {
   bool _checkPartitura() {
     int palma = 0;
     int mao = 0;
-    for(int i=0; i < celulas.length; i++){
-      for(int j=0; j < celulas[i]['row1'].length; j++){
-        if(j == 1 && celulas[i]['row1'][j].valor == true) mao++;
-        else if(j == 2 && celulas[i]['row1'][j].valor == true) palma++;
-        else if(j == 3 && celulas[i]['row1'][j].valor == true) mao++;
+    for (int i = 0; i < celulas.length; i++) {
+      for (int j = 0; j < celulas[i]['row1'].length; j++) {
+        if (j == 1 && celulas[i]['row1'][j].valor == true)
+          mao++;
+        else if (j == 2 && celulas[i]['row1'][j].valor == true)
+          palma++;
+        else if (j == 3 && celulas[i]['row1'][j].valor == true) mao++;
 
-        if(palma > 0 && mao > 0) {
+        if (palma > 0 && mao > 0) {
           var dialog = new DialogBox();
           _animateToIndex(i);
-          dialog.showWarning(context, titulo: "ATENÇÃO",
+          dialog.showWarning(context,
+              titulo: "ATENÇÃO",
               texto: "Não pode haver palma e mão ao mesmo tempo!");
           return false;
         }
       }
       palma = 0;
       mao = 0;
-      for(int j=0; j<celulas[i]['row2'].length; j++){
-        if(j == 1){
-          if(celulas[i]['row2'][j].valor == true) mao++;
-        }
-        else if(j == 2){
-          if(celulas[i]['row2'][j].valor == true) palma++;
-        }
-        else if(j == 3 && celulas[i]['row2'][j].valor == true) mao++;
+      for (int j = 0; j < celulas[i]['row2'].length; j++) {
+        if (j == 1) {
+          if (celulas[i]['row2'][j].valor == true) mao++;
+        } else if (j == 2) {
+          if (celulas[i]['row2'][j].valor == true) palma++;
+        } else if (j == 3 && celulas[i]['row2'][j].valor == true) mao++;
 
-        if(palma > 0 && mao > 0) {
+        if (palma > 0 && mao > 0) {
           var dialog = new DialogBox();
           _animateToIndex(i);
-          dialog.showWarning(context, titulo: "ATENÇÃO",
+          dialog.showWarning(context,
+              titulo: "ATENÇÃO",
               texto: "Não pode haver palma e mão ao mesmo tempo!");
           return false;
         }
       }
       palma = 0;
       mao = 0;
-      for(int j=0; j<celulas[i]['row3'].length; j++){
-        if(j == 1 && celulas[i]['row3'][j].valor == true) mao++;
-        else if(j == 2 && celulas[i]['row3'][j].valor == true) palma++;
-        else if(j == 3 && celulas[i]['row3'][j].valor == true) mao++;
+      for (int j = 0; j < celulas[i]['row3'].length; j++) {
+        if (j == 1 && celulas[i]['row3'][j].valor == true)
+          mao++;
+        else if (j == 2 && celulas[i]['row3'][j].valor == true)
+          palma++;
+        else if (j == 3 && celulas[i]['row3'][j].valor == true) mao++;
 
-        if(palma > 0 && mao > 0) {
+        if (palma > 0 && mao > 0) {
           var dialog = new DialogBox();
           _animateToIndex(i);
-          dialog.showWarning(context, titulo: "ATENÇÃO",
+          dialog.showWarning(context,
+              titulo: "ATENÇÃO",
               texto: "Não pode haver palma e mão ao mesmo tempo!");
           return false;
         }
       }
       palma = 0;
       mao = 0;
-      for(int j=0; j<celulas[i]['row4'].length; j++){
-        if(j == 1 && celulas[i]['row4'][j].valor == true) mao++;
-        else if(j == 2 && celulas[i]['row4'][j].valor == true) palma++;
-        else if(j == 3 && celulas[i]['row4'][j].valor == true) mao++;
+      for (int j = 0; j < celulas[i]['row4'].length; j++) {
+        if (j == 1 && celulas[i]['row4'][j].valor == true)
+          mao++;
+        else if (j == 2 && celulas[i]['row4'][j].valor == true)
+          palma++;
+        else if (j == 3 && celulas[i]['row4'][j].valor == true) mao++;
 
-
-        if(palma > 0 && mao > 0) {
+        if (palma > 0 && mao > 0) {
           var dialog = new DialogBox();
           _animateToIndex(i);
-          dialog.showWarning(context, titulo: "ATENÇÃO",
+          dialog.showWarning(context,
+              titulo: "ATENÇÃO",
               texto: "Não pode haver palma e mão ao mesmo tempo!");
           return false;
         }
@@ -300,15 +394,38 @@ class _CreatePartituraPageState extends State<CreatePartituraPage> {
   }
 
   List<TableModel> _preencherPartitura() {
-
     List<TableModel> lista = [];
 
-    for(int i=0; i<celulas.length; i++){
+    for (int i = 0; i < celulas.length; i++) {
       lista.add(TableModel(
-        row1: [celulas[i]['row1'][0].valor, celulas[i]['row1'][1].valor, celulas[i]['row1'][2].valor, celulas[i]['row1'][3].valor, celulas[i]['row1'][4].valor],
-        row2: [celulas[i]['row2'][0].valor, celulas[i]['row2'][1].valor, celulas[i]['row2'][2].valor, celulas[i]['row2'][3].valor, celulas[i]['row2'][4].valor],
-        row3: [celulas[i]['row3'][0].valor, celulas[i]['row3'][1].valor, celulas[i]['row3'][2].valor, celulas[i]['row3'][3].valor, celulas[i]['row3'][4].valor],
-        row4: [celulas[i]['row4'][0].valor, celulas[i]['row4'][1].valor, celulas[i]['row4'][2].valor, celulas[i]['row4'][3].valor, celulas[i]['row4'][4].valor],
+        row1: [
+          celulas[i]['row1'][0].valor,
+          celulas[i]['row1'][1].valor,
+          celulas[i]['row1'][2].valor,
+          celulas[i]['row1'][3].valor,
+          celulas[i]['row1'][4].valor
+        ],
+        row2: [
+          celulas[i]['row2'][0].valor,
+          celulas[i]['row2'][1].valor,
+          celulas[i]['row2'][2].valor,
+          celulas[i]['row2'][3].valor,
+          celulas[i]['row2'][4].valor
+        ],
+        row3: [
+          celulas[i]['row3'][0].valor,
+          celulas[i]['row3'][1].valor,
+          celulas[i]['row3'][2].valor,
+          celulas[i]['row3'][3].valor,
+          celulas[i]['row3'][4].valor
+        ],
+        row4: [
+          celulas[i]['row4'][0].valor,
+          celulas[i]['row4'][1].valor,
+          celulas[i]['row4'][2].valor,
+          celulas[i]['row4'][3].valor,
+          celulas[i]['row4'][4].valor
+        ],
       ));
     }
     return lista;

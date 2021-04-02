@@ -17,12 +17,12 @@ class PracticePage extends StatefulWidget {
 }
 
 class _PracticePageState extends State<PracticePage> {
-
   static AudioCache player = new AudioCache();
   static const alarmAudioPath = "audio/batida.mp3";
 
   final _scrollController = ScrollController();
 
+  // ignore: unused_field
   Timer _timer;
 
   List<TableModel> partitura = [];
@@ -33,8 +33,8 @@ class _PracticePageState extends State<PracticePage> {
   List<MaterialColor> _cores = [Colors.green, Colors.orange, Colors.red];
 
   MaterialColor _selectedColor = Colors.green;
-  bool _isPlaying= false;
-  bool _buttonIcon= true;
+  bool _isPlaying = false;
+  bool _buttonIcon = true;
   bool _switch1 = true;
   bool _switch2 = true;
 
@@ -54,9 +54,9 @@ class _PracticePageState extends State<PracticePage> {
   }
 
   void iniciarDados() {
-    if(widget.dadosIniciais == null) {
+    if (widget.dadosIniciais == null) {
       setState(() {
-        for(int i=0; i<4; i++)
+        for (int i = 0; i < 4; i++)
           partitura.add(TableModel(
             row1: row,
             row2: row,
@@ -73,12 +73,12 @@ class _PracticePageState extends State<PracticePage> {
 
       print(widget.dadosIniciais.partitura);
       List<dynamic> json = jsonDecode(widget.dadosIniciais.partitura);
-      for(var item in json){
+      for (var item in json) {
         this.partitura.add(TableModel.fromJson(item['tabela']));
       }
 
       rowsColor.clear();
-      rowsColor = List.generate(this.size*4, (_) => false);
+      rowsColor = List.generate(this.size * 4, (_) => false);
     });
   }
 
@@ -98,13 +98,13 @@ class _PracticePageState extends State<PracticePage> {
               ),
             ],
             elevation: 2,
-            backgroundColor: Color.fromARGB(255, 243,243,243),
+            backgroundColor: Color.fromARGB(255, 243, 243, 243),
           ),
-          backgroundColor: Color.fromARGB(255, 243,243,243),
+          backgroundColor: Color.fromARGB(255, 243, 243, 243),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
               setState(() {
-                for(int i = 0; i < rowsColor.length; i++){
+                for (int i = 0; i < rowsColor.length; i++) {
                   rowsColor[i] = false;
                 }
                 _isPlaying = !_isPlaying;
@@ -121,34 +121,34 @@ class _PracticePageState extends State<PracticePage> {
               size: 24,
             ),
           ),
-          body: Align(
-              alignment: Alignment.topCenter,
-              child: _buildPartitura()
-          ),
+          body: Align(alignment: Alignment.topCenter, child: _buildPartitura()),
         );
       },
     );
   }
 
-  void startStop(){
+  void startStop() {
     _animateToIndex(0);
     player.clearCache();
     int counter = 0;
-    _timer = Timer.periodic(Duration(milliseconds: _currentSpeed), (timer) async{
-      if(_isPlaying){
+    _timer =
+        Timer.periodic(Duration(milliseconds: _currentSpeed), (timer) async {
+      if (_isPlaying) {
         counter = counter + 1;
-        if(counter % 4 == 0 && counter < rowsColor.length) _animateToIndex((counter*2/4)-1);
-        if(counter > rowsColor.length){
+        if (counter % 4 == 0 && counter < rowsColor.length)
+          _animateToIndex((counter * 2 / 4) - 1);
+        if (counter > rowsColor.length) {
           timer.cancel();
           counter = null;
           await reset();
           await _animateToIndex(0);
           startStop();
-        }
-        else if(_switch1 == true) player.play(alarmAudioPath);
-        if (_switch2 == true) setState((){rowsColor[counter-1] = true;});
-      }
-      else if(!_isPlaying){
+        } else if (_switch1 == true) player.play(alarmAudioPath);
+        if (_switch2 == true)
+          setState(() {
+            rowsColor[counter - 1] = true;
+          });
+      } else if (!_isPlaying) {
         timer.cancel();
         counter = null;
         return;
@@ -157,13 +157,13 @@ class _PracticePageState extends State<PracticePage> {
   }
 
   _animateToIndex(index) {
-    _scrollController.animateTo((_imageHeight-40) * 4 * index,
+    _scrollController.animateTo((_imageHeight - 40) * 4 * index,
         duration: Duration(milliseconds: 400), curve: Curves.fastOutSlowIn);
   }
 
   reset() {
     sleep(const Duration(milliseconds: 300));
-    for(int i=0; i<rowsColor.length; i++){
+    for (int i = 0; i < rowsColor.length; i++) {
       setState(() {
         setState(() {
           rowsColor[i] = false;
@@ -175,90 +175,107 @@ class _PracticePageState extends State<PracticePage> {
   StatefulBuilder _buildBottomNavigationMenu() {
     return StatefulBuilder(
         builder: (BuildContext context, StateSetter stateSetter) {
-          return Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
+      return Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            Row(
               children: [
-                Row(
-                  children: [
-                    Text('Sound:', style: TextStyle(fontSize: 16),),
-                    Switch(
-                      inactiveTrackColor: Colors.red[500],
-                      activeTrackColor: Colors.green[700],
-                      value: _switch1,
-                      onChanged: (val) {
-                        stateSetter(() => _switch1 = val);
-                      },
-                    ),
-                  ],
+                Text(
+                  'Sound:',
+                  style: TextStyle(fontSize: 16),
                 ),
-                Divider(height: 5, thickness: 0, color: Color.fromARGB(255, 243, 243, 243),),
-                Row(
-                  children: [
-                    Text('Piscar:', style: TextStyle(fontSize: 16),),
-                    Switch(
-                      inactiveTrackColor: Colors.red[500],
-                      activeTrackColor: Colors.green[700],
-                      value: _switch2,
-                      onChanged: (val) {
-                        stateSetter(() => _switch2 = val);
-                      },
-                    ),
-                  ],
+                Switch(
+                  inactiveTrackColor: Colors.red[500],
+                  activeTrackColor: Colors.green[700],
+                  value: _switch1,
+                  onChanged: (val) {
+                    stateSetter(() => _switch1 = val);
+                  },
                 ),
-                Divider(height: 5, thickness: 0, color: Color.fromARGB(255, 243, 243, 243),),
-                Row(
-                  children: [
-                    Text('Velocidade:', style: TextStyle(fontSize: 16),),
-                    SizedBox(width: 10,),
-                    Container(
-                      padding: EdgeInsets.zero,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.black, width: 1.0),
-                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                      ),
-                      child: ToggleButtons(
-                        fillColor: _selectedColor,
-                        color: Colors.black,
-                        selectedColor: Colors.white,
-                        borderRadius: BorderRadius.circular(5),
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text('Easy'),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text('Medium'),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text('Hard'),
-                          )
-                        ],
-                        isSelected: _selections,
-                          onPressed: (int index) {
-                            stateSetter(() {
-                              for(int i=0; i<_selections.length; i++){
-                                if(i == index) {
-                                  _selections[i] = true;
-                                  _currentSpeed = _speeds[i];
-                                } else
-                                  _selections[i] = false;
-                              }
-                              _selectedColor = _cores[index];
-                            });
-                          }
-                      ),
-                    ),
-                  ],
-                )
               ],
             ),
-          );
-        }
-    );
+            Divider(
+              height: 5,
+              thickness: 0,
+              color: Color.fromARGB(255, 243, 243, 243),
+            ),
+            Row(
+              children: [
+                Text(
+                  'Piscar:',
+                  style: TextStyle(fontSize: 16),
+                ),
+                Switch(
+                  inactiveTrackColor: Colors.red[500],
+                  activeTrackColor: Colors.green[700],
+                  value: _switch2,
+                  onChanged: (val) {
+                    stateSetter(() => _switch2 = val);
+                  },
+                ),
+              ],
+            ),
+            Divider(
+              height: 5,
+              thickness: 0,
+              color: Color.fromARGB(255, 243, 243, 243),
+            ),
+            Row(
+              children: [
+                Text(
+                  'Velocidade:',
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Container(
+                  padding: EdgeInsets.zero,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.black, width: 1.0),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  ),
+                  child: ToggleButtons(
+                      fillColor: _selectedColor,
+                      color: Colors.black,
+                      selectedColor: Colors.white,
+                      borderRadius: BorderRadius.circular(5),
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Text('Easy'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Text('Medium'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Text('Hard'),
+                        )
+                      ],
+                      isSelected: _selections,
+                      onPressed: (int index) {
+                        stateSetter(() {
+                          for (int i = 0; i < _selections.length; i++) {
+                            if (i == index) {
+                              _selections[i] = true;
+                              _currentSpeed = _speeds[i];
+                            } else
+                              _selections[i] = false;
+                          }
+                          _selectedColor = _cores[index];
+                        });
+                      }),
+                ),
+              ],
+            )
+          ],
+        ),
+      );
+    });
   }
 
   void _onPressedSettings() {
@@ -279,8 +296,7 @@ class _PracticePageState extends State<PracticePage> {
               ),
             ),
           );
-        }
-    );
+        });
   }
 
   Padding _buildPartitura() {
@@ -296,8 +312,7 @@ class _PracticePageState extends State<PracticePage> {
             final itemTable = partitura[index];
             return _buildTable(itemTable, index);
           },
-        )
-    );
+        ));
   }
 
   Padding _buildTable(TableModel itemTable, int index) {
@@ -305,137 +320,157 @@ class _PracticePageState extends State<PracticePage> {
       padding: const EdgeInsets.all(10.0),
       child: Table(
         border: TableBorder.all(
-            color: Colors.black,
-            style: BorderStyle.solid,
-            width: 2
-        ),
+            color: Colors.black, style: BorderStyle.solid, width: 2),
         children: [
           TableRow(
             children: [
               TableCell(
                   child: Image.asset(
-                    itemTable.row1[0] ? "assets/images/pee.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row1[0] ? "assets/images/pee.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
               TableCell(
                   child: Image.asset(
-                    itemTable.row1[1] ? "assets/images/maoe.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row1[1] ? "assets/images/maoe.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
               TableCell(
                   child: Image.asset(
-                    itemTable.row1[2] ? "assets/images/palma.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row1[2] ? "assets/images/palma.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
               TableCell(
                   child: Image.asset(
-                    itemTable.row1[3] ? "assets/images/maod.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row1[3] ? "assets/images/maod.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
               TableCell(
                   child: Image.asset(
-                    itemTable.row1[4] ? "assets/images/ped.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row1[4] ? "assets/images/ped.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
             ],
             decoration: BoxDecoration(
-              color: rowsColor[(index*4)+3] ? Colors.white : Colors.grey[400],
+              color:
+                  rowsColor[(index * 4) + 3] ? Colors.white : Colors.grey[400],
             ),
           ),
           TableRow(
             children: [
               TableCell(
                   child: Image.asset(
-                    itemTable.row2[0] ? "assets/images/pee.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row2[0] ? "assets/images/pee.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
               TableCell(
                   child: Image.asset(
-                    itemTable.row2[1] ? "assets/images/maoe.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row2[1] ? "assets/images/maoe.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
               TableCell(
                   child: Image.asset(
-                    itemTable.row2[2] ? "assets/images/palma.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row2[2] ? "assets/images/palma.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
               TableCell(
                   child: Image.asset(
-                    itemTable.row2[3] ? "assets/images/maod.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row2[3] ? "assets/images/maod.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
               TableCell(
                   child: Image.asset(
-                    itemTable.row2[4] ? "assets/images/ped.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row2[4] ? "assets/images/ped.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
             ],
             decoration: BoxDecoration(
-              color: rowsColor[(index*4)+2] ? Colors.white : Colors.grey[400],
+              color:
+                  rowsColor[(index * 4) + 2] ? Colors.white : Colors.grey[400],
             ),
           ),
           TableRow(
             children: [
               TableCell(
                   child: Image.asset(
-                    itemTable.row3[0] ? "assets/images/pee.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row3[0] ? "assets/images/pee.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
               TableCell(
                   child: Image.asset(
-                    itemTable.row3[1] ? "assets/images/maoe.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row3[1] ? "assets/images/maoe.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
               TableCell(
                   child: Image.asset(
-                    itemTable.row3[2] ? "assets/images/palma.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row3[2] ? "assets/images/palma.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
               TableCell(
                   child: Image.asset(
-                    itemTable.row3[3] ? "assets/images/maod.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row3[3] ? "assets/images/maod.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
               TableCell(
                   child: Image.asset(
-                    itemTable.row3[4] ? "assets/images/ped.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row3[4] ? "assets/images/ped.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
             ],
             decoration: BoxDecoration(
-              color: rowsColor[(index*4)+1] ? Colors.white : Colors.grey[400],
+              color:
+                  rowsColor[(index * 4) + 1] ? Colors.white : Colors.grey[400],
             ),
           ),
           TableRow(
             children: [
               TableCell(
                   child: Image.asset(
-                    itemTable.row4[0] ? "assets/images/pee.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row4[0] ? "assets/images/pee.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
               TableCell(
                   child: Image.asset(
-                    itemTable.row4[1] ? "assets/images/maoe.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row4[1] ? "assets/images/maoe.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
               TableCell(
                   child: Image.asset(
-                    itemTable.row4[2] ? "assets/images/palma.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row4[2] ? "assets/images/palma.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
               TableCell(
                   child: Image.asset(
-                    itemTable.row4[3] ? "assets/images/maod.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row4[3] ? "assets/images/maod.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
               TableCell(
                   child: Image.asset(
-                    itemTable.row4[4] ? "assets/images/ped.png" : "",
-                    width: _imageWidth, height: _imageHeight,)
-              ),
+                itemTable.row4[4] ? "assets/images/ped.png" : "",
+                width: _imageWidth,
+                height: _imageHeight,
+              )),
             ],
             decoration: BoxDecoration(
-              color: rowsColor[(index*4)] ? Colors.white : Colors.grey[400],
+              color: rowsColor[(index * 4)] ? Colors.white : Colors.grey[400],
             ),
           ),
         ],

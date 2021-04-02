@@ -21,8 +21,11 @@ class _SelecionarPartituraState extends State<SelecionarPartitura> {
       backgroundColor: Color.fromARGB(255, 243, 243, 243),
       appBar: AppBar(
         elevation: 2,
-        backgroundColor: Color.fromARGB(255, 243,243,243),
-        title: Text('Lista de partituras', style: TextStyle(fontSize: 22),),
+        backgroundColor: Color.fromARGB(255, 243, 243, 243),
+        title: Text(
+          'Lista de partituras',
+          style: TextStyle(fontSize: 22),
+        ),
         centerTitle: true,
         actions: [
           IconButton(
@@ -44,7 +47,7 @@ class _SelecionarPartituraState extends State<SelecionarPartitura> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color.fromARGB(255, 243,243,243),
+        backgroundColor: Color.fromARGB(255, 243, 243, 243),
         unselectedItemColor: Colors.grey,
         selectedItemColor: Colors.black,
         showUnselectedLabels: true,
@@ -77,8 +80,7 @@ class _SelecionarPartituraState extends State<SelecionarPartitura> {
               quadros = 2;
             else if (index == 2)
               quadros = 4;
-            else if (index == 3)
-              quadros = 8;
+            else if (index == 3) quadros = 8;
           });
         },
       ),
@@ -94,7 +96,9 @@ class _SelecionarPartituraState extends State<SelecionarPartitura> {
 
         return ListView.separated(
           itemCount: partituras.length,
-          separatorBuilder: (BuildContext context, int index) => Divider(color: Colors.grey[600],),
+          separatorBuilder: (BuildContext context, int index) => Divider(
+            color: Colors.grey[600],
+          ),
           itemBuilder: (_, index) {
             final itemPartitura = partituras[index];
             return _buildListItem(itemPartitura, dao);
@@ -116,8 +120,14 @@ class _SelecionarPartituraState extends State<SelecionarPartitura> {
         ),
       ],
       child: ListTile(
-        title: Text(itemPartitura.name, style: TextStyle(fontSize: 20),),
-        subtitle: Text("Quadros: " + itemPartitura.size.toString(), style: TextStyle(fontSize: 16),),
+        title: Text(
+          itemPartitura.name,
+          style: TextStyle(fontSize: 20),
+        ),
+        subtitle: Text(
+          "Quadros: " + itemPartitura.size.toString(),
+          style: TextStyle(fontSize: 16),
+        ),
         onTap: () async {
           var item = new PartituraModel(
             id: itemPartitura.id,
@@ -126,13 +136,11 @@ class _SelecionarPartituraState extends State<SelecionarPartitura> {
             partitura: itemPartitura.partitura,
           );
           await Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => new PracticePage(
-                  dadosIniciais: item,
-                )
-            )
-          );
+              context,
+              MaterialPageRoute(
+                  builder: (context) => new PracticePage(
+                        dadosIniciais: item,
+                      )));
         },
       ),
     );

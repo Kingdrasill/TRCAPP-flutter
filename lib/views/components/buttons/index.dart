@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class BotaoLiso extends StatelessWidget {
-
   String texto;
   Function onPressed;
 
-  BotaoLiso({
-    this.texto,
-    this.onPressed
-  });
+  BotaoLiso({this.texto, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
