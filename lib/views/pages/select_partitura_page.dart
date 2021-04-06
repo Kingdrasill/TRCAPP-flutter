@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:tcc_app/data/database/database.dart';
 import 'package:tcc_app/data/models/partitura_model.dart';
 import 'package:tcc_app/routes/app_routes.dart';
+import 'package:tcc_app/views/components/dialog_box/index.dart';
 import 'package:tcc_app/views/pages/practice_page.dart';
 
 class SelecionarPartitura extends StatefulWidget {
@@ -55,19 +56,19 @@ class _SelecionarPartituraState extends State<SelecionarPartitura> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment),
-            label: "1 quadro",
+            label: "1 Figura",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment),
-            label: "2 quadros",
+            label: "2 Figuras",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment),
-            label: "4 quadros",
+            label: "4 Figuras",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment),
-            label: "8 quadros",
+            label: "8 Figuras",
           ),
         ],
         currentIndex: _selectedIndex,
@@ -116,7 +117,13 @@ class _SelecionarPartituraState extends State<SelecionarPartitura> {
           caption: "Delete",
           color: Colors.red,
           icon: Icons.delete,
-          onTap: () => dao.deletePartitura(itemPartitura),
+          onTap: () {
+            if(itemPartitura.native == false) dao.deletePartitura(itemPartitura);
+            else {
+              var dialog = new DialogBox();
+              dialog.showWarning(context, titulo: "Atenção", texto: "Execícios nativos não podem ser deletados!");
+            }
+          },
         ),
       ],
       child: ListTile(
@@ -125,7 +132,7 @@ class _SelecionarPartituraState extends State<SelecionarPartitura> {
           style: TextStyle(fontSize: 20),
         ),
         subtitle: Text(
-          "Quadros: " + itemPartitura.size.toString(),
+          "${itemPartitura.size} Figura/as (${itemPartitura.size} compasso/os 4x4)",
           style: TextStyle(fontSize: 16),
         ),
         onTap: () async {

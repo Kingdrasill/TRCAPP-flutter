@@ -12,22 +12,27 @@ class Partitura extends DataClass implements Insertable<Partitura> {
   final String name;
   final int size;
   final String partitura;
+  final bool native;
   Partitura(
       {@required this.id,
       @required this.name,
       @required this.size,
-      @required this.partitura});
+      @required this.partitura,
+      @required this.native});
   factory Partitura.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
     final intType = db.typeSystem.forDartType<int>();
     final stringType = db.typeSystem.forDartType<String>();
+    final boolType = db.typeSystem.forDartType<bool>();
     return Partitura(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       name: stringType.mapFromDatabaseResponse(data['${effectivePrefix}name']),
       size: intType.mapFromDatabaseResponse(data['${effectivePrefix}size']),
       partitura: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}partitura']),
+      native:
+          boolType.mapFromDatabaseResponse(data['${effectivePrefix}native']),
     );
   }
   @override
@@ -45,6 +50,9 @@ class Partitura extends DataClass implements Insertable<Partitura> {
     if (!nullToAbsent || partitura != null) {
       map['partitura'] = Variable<String>(partitura);
     }
+    if (!nullToAbsent || native != null) {
+      map['native'] = Variable<bool>(native);
+    }
     return map;
   }
 
@@ -56,6 +64,8 @@ class Partitura extends DataClass implements Insertable<Partitura> {
       partitura: partitura == null && nullToAbsent
           ? const Value.absent()
           : Value(partitura),
+      native:
+          native == null && nullToAbsent ? const Value.absent() : Value(native),
     );
   }
 
@@ -67,6 +77,7 @@ class Partitura extends DataClass implements Insertable<Partitura> {
       name: serializer.fromJson<String>(json['name']),
       size: serializer.fromJson<int>(json['size']),
       partitura: serializer.fromJson<String>(json['partitura']),
+      native: serializer.fromJson<bool>(json['native']),
     );
   }
   @override
@@ -77,15 +88,18 @@ class Partitura extends DataClass implements Insertable<Partitura> {
       'name': serializer.toJson<String>(name),
       'size': serializer.toJson<int>(size),
       'partitura': serializer.toJson<String>(partitura),
+      'native': serializer.toJson<bool>(native),
     };
   }
 
-  Partitura copyWith({int id, String name, int size, String partitura}) =>
+  Partitura copyWith(
+          {int id, String name, int size, String partitura, bool native}) =>
       Partitura(
         id: id ?? this.id,
         name: name ?? this.name,
         size: size ?? this.size,
         partitura: partitura ?? this.partitura,
+        native: native ?? this.native,
       );
   @override
   String toString() {
@@ -93,14 +107,17 @@ class Partitura extends DataClass implements Insertable<Partitura> {
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('size: $size, ')
-          ..write('partitura: $partitura')
+          ..write('partitura: $partitura, ')
+          ..write('native: $native')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => $mrjf($mrjc(id.hashCode,
-      $mrjc(name.hashCode, $mrjc(size.hashCode, partitura.hashCode))));
+  int get hashCode => $mrjf($mrjc(
+      id.hashCode,
+      $mrjc(name.hashCode,
+          $mrjc(size.hashCode, $mrjc(partitura.hashCode, native.hashCode)))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -108,7 +125,8 @@ class Partitura extends DataClass implements Insertable<Partitura> {
           other.id == this.id &&
           other.name == this.name &&
           other.size == this.size &&
-          other.partitura == this.partitura);
+          other.partitura == this.partitura &&
+          other.native == this.native);
 }
 
 class PartiturasCompanion extends UpdateCompanion<Partitura> {
@@ -116,31 +134,37 @@ class PartiturasCompanion extends UpdateCompanion<Partitura> {
   final Value<String> name;
   final Value<int> size;
   final Value<String> partitura;
+  final Value<bool> native;
   const PartiturasCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.size = const Value.absent(),
     this.partitura = const Value.absent(),
+    this.native = const Value.absent(),
   });
   PartiturasCompanion.insert({
     this.id = const Value.absent(),
     @required String name,
     @required int size,
     @required String partitura,
+    @required bool native,
   })  : name = Value(name),
         size = Value(size),
-        partitura = Value(partitura);
+        partitura = Value(partitura),
+        native = Value(native);
   static Insertable<Partitura> custom({
     Expression<int> id,
     Expression<String> name,
     Expression<int> size,
     Expression<String> partitura,
+    Expression<bool> native,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
       if (size != null) 'size': size,
       if (partitura != null) 'partitura': partitura,
+      if (native != null) 'native': native,
     });
   }
 
@@ -148,12 +172,14 @@ class PartiturasCompanion extends UpdateCompanion<Partitura> {
       {Value<int> id,
       Value<String> name,
       Value<int> size,
-      Value<String> partitura}) {
+      Value<String> partitura,
+      Value<bool> native}) {
     return PartiturasCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       size: size ?? this.size,
       partitura: partitura ?? this.partitura,
+      native: native ?? this.native,
     );
   }
 
@@ -172,6 +198,9 @@ class PartiturasCompanion extends UpdateCompanion<Partitura> {
     if (partitura.present) {
       map['partitura'] = Variable<String>(partitura.value);
     }
+    if (native.present) {
+      map['native'] = Variable<bool>(native.value);
+    }
     return map;
   }
 
@@ -181,7 +210,8 @@ class PartiturasCompanion extends UpdateCompanion<Partitura> {
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('size: $size, ')
-          ..write('partitura: $partitura')
+          ..write('partitura: $partitura, ')
+          ..write('native: $native')
           ..write(')'))
         .toString();
   }
@@ -237,8 +267,20 @@ class $PartiturasTable extends Partituras
     );
   }
 
+  final VerificationMeta _nativeMeta = const VerificationMeta('native');
+  GeneratedBoolColumn _native;
   @override
-  List<GeneratedColumn> get $columns => [id, name, size, partitura];
+  GeneratedBoolColumn get native => _native ??= _constructNative();
+  GeneratedBoolColumn _constructNative() {
+    return GeneratedBoolColumn(
+      'native',
+      $tableName,
+      false,
+    );
+  }
+
+  @override
+  List<GeneratedColumn> get $columns => [id, name, size, partitura, native];
   @override
   $PartiturasTable get asDslTable => this;
   @override
@@ -270,6 +312,12 @@ class $PartiturasTable extends Partituras
           partitura.isAcceptableOrUnknown(data['partitura'], _partituraMeta));
     } else if (isInserting) {
       context.missing(_partituraMeta);
+    }
+    if (data.containsKey('native')) {
+      context.handle(_nativeMeta,
+          native.isAcceptableOrUnknown(data['native'], _nativeMeta));
+    } else if (isInserting) {
+      context.missing(_nativeMeta);
     }
     return context;
   }

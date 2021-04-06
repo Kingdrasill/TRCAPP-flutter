@@ -310,7 +310,9 @@ class _CreatePartituraPageState extends State<CreatePartituraPage> {
     final partituraTable = PartiturasCompanion(
         name: Value(nome),
         size: Value(size),
-        partitura: Value(jsonEncode(partituraJson)));
+        partitura: Value(jsonEncode(partituraJson)),
+        native: Value(false),
+    );
     await dao.insertPartitura(partituraTable);
     Navigator.pop(context);
   }

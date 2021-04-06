@@ -19,41 +19,55 @@ class _AboutPageState extends State<AboutPage> {
         padding: const EdgeInsets.all(15.0),
         child: ListView(
           children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 50,
-                  child: Image.asset("assets/images/daniel.jfif"),
-                ),
-                SizedBox(width: 10,),
-                Text(
-                  'Daniel Penido',
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w800,
+            Card(
+              elevation: 0,
+              color: Color.fromARGB(255, 243, 243, 243),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    radius: 40,
+                    child: Image.asset("assets/images/daniel.jfif"),
                   ),
-                ),
-              ],
+                  SizedBox(width: 10,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Daniel Penido',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.65,
+                        child: Text(
+                          'Musico, multi-instrumentista e professor de percussão.',
+                          textAlign: TextAlign.start,
+                          softWrap: true,
+                          style: TextStyle(fontSize: 14, color: Colors.grey[800]),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 10),
-            Text(
-              'Musico, multi-instrumentista e professor de percussão.',
-              textAlign: TextAlign.start,
-              style: TextStyle(fontSize: 15, color: Colors.grey[800]),
-            ),
-            SizedBox(height: 7,),
+            SizedBox(height: 5),
             Text(
               'Baterista e percussionista, atua com aulas, shows, gravações, espetáculos e oficinas de musicalização e percepção rítmica para alunos, educadores, idosos e trabalhos corporativos.',
               textAlign: TextAlign.start,
               style: TextStyle(fontSize: 15, color: Colors.grey[800]),
             ),
-            SizedBox(height: 12,),
+            SizedBox(height: 7,),
             Text(
               'Autor do livro:',
               textAlign: TextAlign.start,
               style: TextStyle(fontSize: 22, color: Colors.grey[800]),
             ),
-            SizedBox(height: 7,),
+            SizedBox(height: 5,),
             RichText(
               textAlign: TextAlign.start,
               text: new TextSpan(
@@ -79,48 +93,92 @@ class _AboutPageState extends State<AboutPage> {
               style: TextStyle(fontSize: 26, color: Colors.grey[800]),
             ),
             SizedBox(height: 7,),
-            InkWell(
-              child: Text(
-                'palmape.com',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 18
+            Row(
+              children: [
+                Text(
+                  "Youtube - ",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18
+                  ),
                 ),
-              ),
-              onTap: () => launch('http://www.palmape.com'),
+                InkWell(
+                  child: Text(
+                    'bit.ly/31k1N9i',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 18
+                    ),
+                  ),
+                  onTap: () => launch('https://bit.ly/31k1N9i'),
+                ),
+              ],
             ),
             SizedBox(height: 4,),
-            InkWell(
-              child: Text(
-                'instagram.com/palmaperitmo',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 18
+            Row(
+              children: [
+                Text(
+                  "Telegram - ",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18
+                  ),
                 ),
-              ),
-              onTap: () => launch('http://instagram.com/palmaperitmo'),
+                InkWell(
+                  child: Text(
+                    't.me/palmape',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 18
+                    ),
+                  ),
+                  onTap: () => launch('https://t.me/palmape'),
+                ),
+              ],
             ),
             SizedBox(height: 4,),
-            InkWell(
-              child: Text(
-                'Instagram.com/danielpenidooficial',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 18
+            Row(
+              children: [
+                Text(
+                  "Instagram - ",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18
+                  ),
                 ),
-              ),
-              onTap: () => launch('http://instagram.com/danielpenidooficial'),
+                InkWell(
+                  child: Text(
+                    'bit.ly/2PqI6Kc',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 18
+                    ),
+                  ),
+                  onTap: () => launch('https://bit.ly/2PqI6Kc'),
+                ),
+              ],
             ),
             SizedBox(height: 4,),
-            InkWell(
-              child: Text(
-                't.me/palmape',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 18
+            Row(
+              children: [
+                Text(
+                  "Hotmart - ",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18
+                  ),
                 ),
-              ),
-              onTap: () => launch('https://t.me/palmape'),
+                InkWell(
+                  child: Text(
+                    'go.hotmart.com/K37968771M',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 18
+                    ),
+                  ),
+                  onTap: () => launch('https://go.hotmart.com/K37968771M'),
+                ),
+              ],
             ),
           ],
         ),

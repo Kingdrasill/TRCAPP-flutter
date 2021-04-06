@@ -7,6 +7,7 @@ class Partituras extends Table{
   TextColumn get name => text()();
   IntColumn get size => integer()();
   TextColumn get partitura => text()();
+  BoolColumn get native => boolean()();
 }
 
 @UseMoor(tables: [Partituras], daos: [PartituraDao])

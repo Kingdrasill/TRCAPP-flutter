@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> {
           name: Value(_partituras[i].name),
           size: Value(_partituras[i].size),
           partitura: Value(json.encode(_partituras[i].partitura)),
+          native: Value(true),
         );
         dao.insertPartitura(partitura);
       }

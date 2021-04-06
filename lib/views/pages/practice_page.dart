@@ -131,23 +131,24 @@ class _PracticePageState extends State<PracticePage> {
     _animateToIndex(0);
     player.clearCache();
     int counter = 0;
-    _timer =
-        Timer.periodic(Duration(milliseconds: _currentSpeed), (timer) async {
+    _timer = Timer.periodic(Duration(milliseconds: _currentSpeed), (timer) async {
       if (_isPlaying) {
         counter = counter + 1;
         if (counter % 4 == 0 && counter < rowsColor.length)
           _animateToIndex((counter * 2 / 4) - 1);
-        if (counter > rowsColor.length) {
-          timer.cancel();
-          counter = null;
-          await reset();
-          await _animateToIndex(0);
-          startStop();
-        } else if (_switch1 == true) player.play(alarmAudioPath);
-        if (_switch2 == true)
+        if (_switch2 == true) {
           setState(() {
+            if(counter == 1){
+              reset();
+              _animateToIndex(0);
+            }
             rowsColor[counter - 1] = true;
           });
+          if (_switch1 == true) player.play(alarmAudioPath);
+          if (counter == rowsColor.length) {
+            counter = 0;
+          }
+        }
       } else if (!_isPlaying) {
         timer.cancel();
         counter = null;
@@ -162,12 +163,9 @@ class _PracticePageState extends State<PracticePage> {
   }
 
   reset() {
-    sleep(const Duration(milliseconds: 300));
     for (int i = 0; i < rowsColor.length; i++) {
       setState(() {
-        setState(() {
-          rowsColor[i] = false;
-        });
+        rowsColor[i] = false;
       });
     }
   }
@@ -318,162 +316,172 @@ class _PracticePageState extends State<PracticePage> {
   Padding _buildTable(TableModel itemTable, int index) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: Table(
-        border: TableBorder.all(
-            color: Colors.black, style: BorderStyle.solid, width: 2),
-        children: [
-          TableRow(
-            children: [
-              TableCell(
-                  child: Image.asset(
-                itemTable.row1[0] ? "assets/images/pee.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-              TableCell(
-                  child: Image.asset(
-                itemTable.row1[1] ? "assets/images/maoe.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-              TableCell(
-                  child: Image.asset(
-                itemTable.row1[2] ? "assets/images/palma.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-              TableCell(
-                  child: Image.asset(
-                itemTable.row1[3] ? "assets/images/maod.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-              TableCell(
-                  child: Image.asset(
-                itemTable.row1[4] ? "assets/images/ped.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-            ],
-            decoration: BoxDecoration(
-              color:
-                  rowsColor[(index * 4) + 3] ? Colors.white : Colors.grey[400],
-            ),
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            width: 15,
+            color: Colors.grey[800]
           ),
-          TableRow(
-            children: [
-              TableCell(
-                  child: Image.asset(
-                itemTable.row2[0] ? "assets/images/pee.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-              TableCell(
-                  child: Image.asset(
-                itemTable.row2[1] ? "assets/images/maoe.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-              TableCell(
-                  child: Image.asset(
-                itemTable.row2[2] ? "assets/images/palma.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-              TableCell(
-                  child: Image.asset(
-                itemTable.row2[3] ? "assets/images/maod.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-              TableCell(
-                  child: Image.asset(
-                itemTable.row2[4] ? "assets/images/ped.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-            ],
-            decoration: BoxDecoration(
-              color:
-                  rowsColor[(index * 4) + 2] ? Colors.white : Colors.grey[400],
-            ),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        child: Table(
+          border: TableBorder.symmetric(
+            inside: BorderSide(width: 2, color: Colors.grey[600]),
           ),
-          TableRow(
-            children: [
-              TableCell(
-                  child: Image.asset(
-                itemTable.row3[0] ? "assets/images/pee.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-              TableCell(
-                  child: Image.asset(
-                itemTable.row3[1] ? "assets/images/maoe.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-              TableCell(
-                  child: Image.asset(
-                itemTable.row3[2] ? "assets/images/palma.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-              TableCell(
-                  child: Image.asset(
-                itemTable.row3[3] ? "assets/images/maod.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-              TableCell(
-                  child: Image.asset(
-                itemTable.row3[4] ? "assets/images/ped.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-            ],
-            decoration: BoxDecoration(
-              color:
-                  rowsColor[(index * 4) + 1] ? Colors.white : Colors.grey[400],
+          children: [
+            TableRow(
+              children: [
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row1[0] ? "assets/images/pee.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row1[1] ? "assets/images/maoe.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row1[2] ? "assets/images/palma.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row1[3] ? "assets/images/maod.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row1[4] ? "assets/images/ped.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+              ],
+              decoration: BoxDecoration(
+                color:
+                    rowsColor[(index * 4) + 3] ? Colors.white : Colors.grey[400],
+              ),
             ),
-          ),
-          TableRow(
-            children: [
-              TableCell(
-                  child: Image.asset(
-                itemTable.row4[0] ? "assets/images/pee.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-              TableCell(
-                  child: Image.asset(
-                itemTable.row4[1] ? "assets/images/maoe.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-              TableCell(
-                  child: Image.asset(
-                itemTable.row4[2] ? "assets/images/palma.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-              TableCell(
-                  child: Image.asset(
-                itemTable.row4[3] ? "assets/images/maod.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-              TableCell(
-                  child: Image.asset(
-                itemTable.row4[4] ? "assets/images/ped.png" : "",
-                width: _imageWidth,
-                height: _imageHeight,
-              )),
-            ],
-            decoration: BoxDecoration(
-              color: rowsColor[(index * 4)] ? Colors.white : Colors.grey[400],
+            TableRow(
+              children: [
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row2[0] ? "assets/images/pee.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row2[1] ? "assets/images/maoe.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row2[2] ? "assets/images/palma.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row2[3] ? "assets/images/maod.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row2[4] ? "assets/images/ped.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+              ],
+              decoration: BoxDecoration(
+                color:
+                    rowsColor[(index * 4) + 2] ? Colors.white : Colors.grey[400],
+              ),
             ),
-          ),
-        ],
+            TableRow(
+              children: [
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row3[0] ? "assets/images/pee.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row3[1] ? "assets/images/maoe.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row3[2] ? "assets/images/palma.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row3[3] ? "assets/images/maod.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row3[4] ? "assets/images/ped.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+              ],
+              decoration: BoxDecoration(
+                color:
+                    rowsColor[(index * 4) + 1] ? Colors.white : Colors.grey[400],
+              ),
+            ),
+            TableRow(
+              children: [
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row4[0] ? "assets/images/pee.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row4[1] ? "assets/images/maoe.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row4[2] ? "assets/images/palma.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row4[3] ? "assets/images/maod.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+                TableCell(
+                    child: Image.asset(
+                  itemTable.row4[4] ? "assets/images/ped.png" : "",
+                  width: _imageWidth,
+                  height: _imageHeight,
+                )),
+              ],
+              decoration: BoxDecoration(
+                color: rowsColor[(index * 4)] ? Colors.white : Colors.grey[400],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
