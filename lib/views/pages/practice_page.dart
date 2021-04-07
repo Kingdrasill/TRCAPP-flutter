@@ -180,7 +180,7 @@ class _PracticePageState extends State<PracticePage> {
             Row(
               children: [
                 Text(
-                  'Sound:',
+                  'Batida:',
                   style: TextStyle(fontSize: 16),
                 ),
                 Switch(
@@ -243,15 +243,15 @@ class _PracticePageState extends State<PracticePage> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: Text('Easy'),
+                          child: Text('Fácil'),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: Text('Medium'),
+                          child: Text('Moderado'),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: Text('Hard'),
+                          child: Text('Difícil'),
                         )
                       ],
                       isSelected: _selections,
